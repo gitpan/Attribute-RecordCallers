@@ -7,7 +7,7 @@ use Carp qw(carp);
 use Time::HiRes qw(time);
 use Scalar::Util qw(set_prototype);
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 our @CARP_NOT = qw(Attribute::Handlers);
 # arguably a bug in Carp, but Attribute::Handlers does
@@ -69,7 +69,7 @@ hash C<%Attribute::RecordCallers::caller> is populated with caller information.
 The keys in the hash are the function names, and the elements are arrayrefs
 containing lists of quadruplets:
 
-    [ package, filename, line, timestamp ]
+    [ $package, $filename, $line, $timestamp ]
 
 The timestamp is obtained via C<Time::HiRes>.
 
@@ -95,6 +95,9 @@ all the calls.
 You cannot use the C<:RecordCaller> attribute on anonymous or lexical
 subroutines, or or subroutines with any other attribute (such as
 C<:lvalue>).
+
+With perls older than version 5.16.0, setting the C<:RecordCallers>
+attribute will remove the prototype of any subroutine.
 
 =head1 LICENSE
 
